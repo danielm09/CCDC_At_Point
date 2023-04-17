@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/CCDC_retriever" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
