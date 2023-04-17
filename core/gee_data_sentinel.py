@@ -22,6 +22,7 @@ import numpy as np
 
 
 def getImageCollection(name, geometry, date_start, date_end, cloud_filter, bands):
+    #gets image collection from Google Earth Engine
     import ee
     if name=='Sentinel-2':
         name = 'COPERNICUS/S2_SR_HARMONIZED'
@@ -56,7 +57,6 @@ def addNBR(image):
     nbr = image.normalizedDifference(['B8', 'B12']).multiply(10000).int16()
     return image.addBands(nbr.rename('nbr'))
 
-
 def addEVI(image):
     evi = image.expression(
       '2.5 * ((NIR-RED) / (NIR + 6 * RED - 7.5* BLUE +1))', {
@@ -68,7 +68,7 @@ def addEVI(image):
 
 
 
-#SCL cloud/shadow filter
+#Sen2Cor SCL cloud/shadow filter
 def filterS2_level2A(image):
     import ee
     SCL = image.select('SCL')
