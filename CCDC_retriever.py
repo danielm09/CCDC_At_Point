@@ -203,5 +203,5 @@ class ChangeDetection:
 
     def onClosePlugin(self):
         # delete the marker
-        from ccdc_retriever.CCDC_retriever_dialog import PickerCoordsOnMap
+        from .CCDC_retriever_dialog import PickerCoordsOnMap
         PickerCoordsOnMap.delete_marker()
