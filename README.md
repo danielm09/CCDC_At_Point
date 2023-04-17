@@ -8,7 +8,8 @@ CCDC At Point is a QGIS plug-in that generates a chart of the regression fitted 
 CCDC At Point uses Google Earth Engine to acquire image time series and implement the CCDC algorithm.
 
 # Installation and requirements
-For CCDC At Point to work, it is necessary that the Google Earth Engine QGIS plug-in is installed.
+- For CCDC At Point to work, it is necessary that the Google Earth Engine QGIS plug-in is installed.
+- Download the repository as a zip file and in QGIS go to Plugins > Manage and Install Plugins > Install from ZIP
 
 # License
 CCDC At Point is a free/libre software and is licensed under the GNU General Public License.
