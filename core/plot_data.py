@@ -44,14 +44,13 @@ def createArtificialDates(first_date, date_end):
     #create sequence of dates from first date to date_end, spaced by 10 days
     interval = 10 #days
     
+    #convert date end to milliseconds
     date_end_millis = ee.Date(date_end).millis().getInfo()
-    print(type(first_date))
-    print(first_date)
-    print(type(date_end_millis))
-    print(date_end_millis)
-
+    
+    #calculate the number of intervals
     num_intervals = int((date_end_millis-first_date)/(interval*24*60*60*1000))
     
+    #determine the artificial dates
     artificial_dates = [first_date+x*interval*24*60*60*1000 for x in range(num_intervals)]
 
     #adjust end of series
@@ -66,15 +65,16 @@ def createArtificialDates(first_date, date_end):
 
 def plotCCDCFitting(geometry, img_collection, band_to_plot, ccdc_result_info, artificial_dates):
     
+    #get the number of segments (fits)
     nsegments = len(ccdc_result_info['tBreak'][0])
     
     #list to store predicted values of each segment. values of segment 0 are stored in the first element of the list and so on
     predicted_values = []
     fig, ax = plt.subplots(figsize=(10, 6))
-
     for seg in range(nsegments):
         artificial_dates_seg = artificial_dates[(artificial_dates<ccdc_result_info['tEnd'][0][seg])&(artificial_dates>ccdc_result_info['tStart'][0][seg])]
         coefs = ccdc_result_info['{}_coefs'.format(band_to_plot)][0][seg]
+        #plug values into the regression equation
         pred = [coefs[0]+coefs[1]*t+
                 coefs[2]*np.cos(t*1*2*np.pi/(365.25*24*60*60*1000))+
                 coefs[3]*np.cos(t*1*2*np.pi/(365.25*24*60*60*1000))+
